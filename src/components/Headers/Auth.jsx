@@ -9,6 +9,7 @@ function Auth() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState(null);
   const modal = useSelector((state) => state.modal.modalActive);
+
   const dispatch = useDispatch();
   const openModalFn = (e) => {
     dispatch(modalSwitcher(!modal));
