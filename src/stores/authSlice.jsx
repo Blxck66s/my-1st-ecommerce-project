@@ -20,6 +20,18 @@ export const login = (input) => async (dispatch) => {
   return res;
 };
 
+export const logout = () => async (dispatch) => {
+  localStorage.removeItem("token");
+  dispatch(userWritter(null));
+};
+
+export const register = (input) => async (dispatch) => {
+  const res = await axios.post("http://localhost:3001/auth/register", input);
+  localStorage.setItem("token", res.data.token);
+  dispatch(userWritter(res.data.user));
+  return res;
+};
+
 export const getuser = (input) => async (dispatch) => {
   const res = await axios.get("http://localhost:3001/auth/getuser", {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

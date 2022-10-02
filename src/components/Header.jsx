@@ -9,7 +9,7 @@ function Header() {
   const user = useSelector((state) => state.auth.user);
   return (
     <div className={mode ? "dark" : ""}>
-      <div className="flex justify-between min-w-[1060px] bg-slate-100 dark:bg-slate-800  dark:text-slate-100">
+      <div className="flex justify-between min-w-[1080px] bg-slate-100 dark:bg-slate-800  dark:text-slate-100">
         <LogoAndMode />
         <Nav />
         {user ? <User /> : <Auth />}

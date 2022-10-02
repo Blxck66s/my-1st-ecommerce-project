@@ -16,7 +16,7 @@ function Modal({ title, children }) {
       onClick={closeModal}
     >
       <div
-        className="flex flex-col fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-[400px] min-h-fit bg-slate-100 rounded-3xl dark:bg-slate-700 
+        className="flex flex-col fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-[500px] min-h-fit bg-slate-100 rounded-3xl dark:bg-slate-700 
         transition-all ease-in-out duration-300"
         onClick={(e) => e.stopPropagation()}
       >
