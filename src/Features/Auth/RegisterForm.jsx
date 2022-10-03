@@ -51,6 +51,7 @@ function RegisterForm() {
         const merged = Object.assign(initialValuePH, errors);
         setInputPH({ ...merged });
         errors = null;
+
         return;
       }
       await dispatch(register(input));
@@ -66,13 +67,13 @@ function RegisterForm() {
   };
   return (
     <form>
-      <div className="min-h-fit flex flex-col my-5 gap-2 items-center">
+      <div className="min-h-fit flex flex-col my-5 gap-2 items-center ">
         <div className="flex flex-col gap-1">
           <div className="flex gap-4">
             <input
               type="text"
               placeholder="ชื่อ"
-              className={`placeholder:pl-2 placeholder:text-slate-400 w-40 ${
+              className={`placeholder:pl-2 placeholder:text-slate-400 w-40 dark:bg-gray-500 ${
                 inputPH.firstName !== "ชื่อ" ? "border border-red-500" : ""
               }`}
               value={input.firstName}
@@ -84,7 +85,7 @@ function RegisterForm() {
             <input
               type="text"
               placeholder="นามสกุล"
-              className={`placeholder:pl-2 placeholder:text-slate-400 w-40 ${
+              className={`placeholder:pl-2 placeholder:text-slate-400 w-40 dark:bg-gray-500 ${
                 inputPH.lastName !== "นามสกุล" ? "border border-red-500" : ""
               }`}
               value={input.lastName}
@@ -104,7 +105,7 @@ function RegisterForm() {
         <input
           type="email"
           placeholder="อีเมล"
-          className={`placeholder:pl-2 placeholder:text-slate-400 w-[21rem] ${
+          className={`placeholder:pl-2 placeholder:text-slate-400 w-[21rem] dark:bg-gray-500 ${
             inputPH.email !== "อีเมล" ? "border border-red-500" : ""
           } `}
           value={input.email}
@@ -117,7 +118,7 @@ function RegisterForm() {
         <input
           type="tel"
           placeholder="เบอร์"
-          className={`placeholder:pl-2 placeholder:text-slate-400 w-[21rem]  ${
+          className={`placeholder:pl-2 placeholder:text-slate-400 w-[21rem] dark:bg-gray-500  ${
             inputPH.mobile !== "เบอร์" ? "border border-red-500" : ""
           }`}
           value={input.mobile}
@@ -130,7 +131,7 @@ function RegisterForm() {
         <input
           type="text"
           placeholder="username"
-          className={`placeholder:pl-2 placeholder:text-slate-400 w-[21rem] ${
+          className={`placeholder:pl-2 placeholder:text-slate-400 w-[21rem] dark:bg-gray-500 ${
             inputPH.username !== "username" ? "border border-red-500" : ""
           } `}
           value={input.username}
@@ -142,7 +143,7 @@ function RegisterForm() {
         <input
           type="password"
           placeholder="รหัสผ่าน"
-          className={`placeholder:pl-2 placeholder:text-slate-400 w-[21rem] ${
+          className={`placeholder:pl-2 placeholder:text-slate-400 w-[21rem] dark:bg-gray-500 ${
             inputPH.password !== "รหัสผ่าน" ? "border border-red-500" : ""
           } `}
           value={input.password}
@@ -155,7 +156,7 @@ function RegisterForm() {
         <input
           type="password"
           placeholder="ยืนยันรหัสผ่าน"
-          className={`placeholder:pl-2 placeholder:text-slate-400 w-[21rem] ${
+          className={`placeholder:pl-2 placeholder:text-slate-400 w-[21rem] dark:bg-gray-500 ${
             inputPH.confirmPassword !== "ยืนยันรหัสผ่าน"
               ? "border border-red-500"
               : ""

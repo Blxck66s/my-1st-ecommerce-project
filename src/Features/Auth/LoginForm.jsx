@@ -23,7 +23,7 @@ function LoginForm() {
     setUsernamePHBL(false);
     setPasswordPHBL(false);
     try {
-      const res = await dispatch(login(input));
+      await dispatch(login(input));
       await dispatch(getuser());
       closeModalFn();
     } catch (err) {
@@ -46,7 +46,7 @@ function LoginForm() {
         <input
           type="text"
           placeholder={usernamePH}
-          className={`placeholder:pl-2 placeholder:text-slate-400 w-[17rem] ${
+          className={`placeholder:pl-2 placeholder:text-slate-400 w-[17rem] dark:bg-gray-500 ${
             usernamePHBL ? "placeholder:text-red-500 border border-red-500" : ""
           }`}
           value={input.username}
@@ -56,7 +56,7 @@ function LoginForm() {
         <input
           type="password"
           placeholder={passwordPH}
-          className={`placeholder:pl-2 placeholder:text-slate-400 w-[17rem] ${
+          className={`placeholder:pl-2 placeholder:text-slate-400 w-[17rem] dark:bg-gray-500 ${
             passwordPHBL ? "placeholder:text-red-500 border border-red-500" : ""
           }`}
           value={input.password}
