@@ -5,15 +5,13 @@ import { useSelector } from "react-redux";
 import User from "./Headers/User";
 
 function Header() {
-  const mode = useSelector((state) => state.header.mode);
-  const user = useSelector((state) => state.auth.user);
+  const isLogged = useSelector((state) => state.auth.isLogged);
+
   return (
-    <div className={mode ? "dark" : ""}>
-      <div className="flex justify-between min-w-[1080px] bg-slate-100 dark:bg-slate-800  dark:text-slate-100">
-        <LogoAndMode />
-        <Nav />
-        {user ? <User /> : <Auth />}
-      </div>
+    <div className="flex justify-between min-w-[1080px] bg-slate-100 dark:bg-slate-800  dark:text-slate-100">
+      <LogoAndMode />
+      <Nav />
+      {isLogged ? <User /> : <Auth />}
     </div>
   );
 }
