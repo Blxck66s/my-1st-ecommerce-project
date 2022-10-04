@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getuser, register } from "../../stores/authSlice";
+import { AuthContext } from "../../contexts/AuthContext";
 import { modalSwitcher } from "../../stores/modalSlice";
 import RegisterValidation from "../../utils/RegisterValidation";
 
 function RegisterForm() {
+  const { register, getuser } = useContext(AuthContext);
   const [input, setInput] = useState({
     firstName: "",
     lastName: "",
@@ -54,9 +55,9 @@ function RegisterForm() {
 
         return;
       }
-      await dispatch(register(input));
+      await register(input);
 
-      await dispatch(getuser());
+      await getuser();
       closeModalFn();
     } catch (err) {
       console.log(err);

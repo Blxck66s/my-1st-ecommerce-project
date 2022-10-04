@@ -1,19 +1,25 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [waitUser, setWaitUser] = useState(true);
+
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchMe = async () => {
       try {
         if (localStorage.getItem("token")) {
           await getuser();
         }
-      } catch (error) {}
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setWaitUser(false);
+      }
     };
-    fetchUser();
+    fetchMe();
   }, []);
 
   const getuser = async () => {
@@ -22,30 +28,30 @@ function AuthContextProvider({ children }) {
     });
     setUser(res.data.user);
   };
-
-  const login = async (input) => {
-    try {
-      const res = await axios.post("http://localhost:3001/auth/login", input);
-      localStorage.setItem("token", res.data.token);
-      await getuser();
-    } catch (err) {
-      return err;
-    }
-  };
-
   const register = async (input) => {
-    const res = axios.post("http://localhost:3001/auth/register", input);
+    const res = await axios.post("http://localhost:3001/auth/register", input);
     localStorage.setItem("token", res.data.token);
-    await getuser();
+  };
+  const login = async (input) => {
+    const res = await axios.post("http://localhost:3001/auth/login", input);
+    localStorage.setItem("token", res.data.token);
+
+    return res;
+  };
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("token");
   };
 
   return (
     <AuthContext.Provider
       value={{
-        login,
-        register,
-        getuser,
         user,
+        waitUser,
+        register,
+        login,
+        logout,
+        getuser,
       }}
     >
       {children}
@@ -54,4 +60,3 @@ function AuthContextProvider({ children }) {
 }
 
 export default AuthContextProvider;
-export { AuthContext };

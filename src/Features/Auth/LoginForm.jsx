@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getuser, login } from "../../stores/authSlice";
+import { AuthContext } from "../../contexts/AuthContext";
 import { modalSwitcher } from "../../stores/modalSlice";
 
 function LoginForm() {
+  const { login, getuser } = useContext(AuthContext);
   const [input, setInput] = useState({ username: "", password: "" });
   const [usernamePH, setUsernamePH] = useState("username");
   const [passwordPH, setPasswordPH] = useState("password");
@@ -23,17 +24,18 @@ function LoginForm() {
     setUsernamePHBL(false);
     setPasswordPHBL(false);
     try {
-      await dispatch(login(input));
-      await dispatch(getuser());
+      await login(input);
+      await getuser();
       closeModalFn();
     } catch (err) {
-      console.log(err.response.data.message);
+      console.log(err);
+      console.log(err.response?.data?.message);
       setInput({ username: "", password: "" });
-      if (err.response.data.message === "this username doesnt exist") {
+      if (err.response?.data?.message === "this username doesnt exist") {
         setUsernamePH("username is invalid");
         setUsernamePHBL(true);
       }
-      if (err.response.data.message === "password is invalid") {
+      if (err.response?.data?.message === "password is invalid") {
         setPasswordPH("password is invalid");
         setPasswordPHBL(true);
       }

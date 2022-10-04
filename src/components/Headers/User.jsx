@@ -1,10 +1,10 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { logout } from "../../stores/authSlice";
+import React, { useContext } from "react";
+
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
 
 function User() {
-  const dispatch = useDispatch();
+  const { logout } = useContext(AuthContext);
 
   return (
     <div className="flex mr-20 items-center">
@@ -19,7 +19,7 @@ function User() {
       <button
         className="NavAuth BtnHover  hover:bg-blue-600 hover:text-slate-100"
         value="ออกจากระบบ"
-        onClick={() => dispatch(logout())}
+        onClick={() => logout()}
       >
         ออกจากระบบ
       </button>

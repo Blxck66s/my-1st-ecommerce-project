@@ -1,18 +1,18 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import UserLayout from "../layouts/UserLayout";
 
-import React from "react";
+import React, { useContext } from "react";
 import Home from "../pages/Home";
 import Payment from "../pages/Payment";
 import Shopping from "../pages/Shopping";
 import UserPage from "../pages/UserPage";
-import { useSelector } from "react-redux";
+import { AuthContext } from "../contexts/AuthContext";
 
 function Router() {
-  const isLogged = useSelector((state) => state.auth.isLogged);
+  const { user } = useContext(AuthContext);
   return (
     <Routes>
-      {isLogged ? (
+      {user ? (
         <Route path="/" element={<UserLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/Shopping" element={<Shopping />} />
