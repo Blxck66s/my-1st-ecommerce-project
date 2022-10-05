@@ -1,13 +1,53 @@
-import React, { useContext } from "react";
-import { useSelector } from "react-redux";
+import React, { useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { AuthContext } from "../contexts/AuthContext";
+import { orderContext } from "../contexts/orderContext";
+
+import moment from "moment";
+
+import DateAgo from "../utils/DateAgo";
+import OrderDetail from "../Features/user/OrderDetail";
+import { modalSwitcher } from "../stores/modalSlice";
+import Modal from "../components/ui/Modal";
 
 function UserPage() {
-  // const user = useSelector((state) => state.auth.user);
+  const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
+  const { getOrderById, getOrders, getOrderPaymentConfirmByOrderId } =
+    useContext(orderContext);
+  const [orders, setOrders] = useState(null);
+  const [order, setOrder] = useState(null);
+  const [orderPC, setorderPC] = useState(null);
+  const modal = useSelector((state) => state.modal.modalActive);
   const mode = useSelector((state) => state.header.mode);
-  // const orders = useSelector((state) => state.order.orders);
-  console.log(user);
+  const [clickedOrder, setClickedOrder] = useState(null);
+
+  const dispatch = useDispatch();
+  const openModalFn = async (e) => {
+    setClickedOrder(e.target.id);
+    await getOrderPaymentConfirmByOrderId(e.target.id).then((res) =>
+      setorderPC(res)
+    );
+    await getOrderById(e.target.id)
+      .then((res) => setOrder(res))
+      .then(() => dispatch(modalSwitcher(true)));
+  };
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const res = await getOrders();
+        setOrders(res);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetch();
+  }, []);
+
+  if (loading) return <div>waiting</div>;
   return (
     <div
       className={` h-[800px] w-full bg-slate-100 dark:bg-slate-600 flex justify-center gap-4 dark:text-white ${
@@ -39,26 +79,96 @@ function UserPage() {
           <br />
           <div className="mb-3">ออเดอร์ของฉัน</div>
           <div className="w-full flex flex-col gap-2 ">
-            <div className="flex justify-around">
-              <span>รหัสออเดอร์</span>
-              <span>วันที่สั่งซื้อ</span>
-              <span>วันที่สิ้นสุดการชำระเงิน</span>
-              <span>เวลาการสั่งซื้อ</span>
-              <span>การจัดส่งสินค้า</span>
-              <span>สถานะการชำระ</span>
-              <span>สถานะออเดอร์</span>
-              <span>รายละเอียดออเดอร์</span>
+            <div className="grid grid-cols-8 gap-2">
+              <div>รหัสออเดอร์</div>
+              <div>วันที่สั่งซื้อ</div>
+              <div>
+                วันที่สิ้นสุด
+                <br />
+                การชำระเงิน
+              </div>
+              <div>เวลาการสั่งซื้อ</div>
+              <div>การจัดส่งสินค้า</div>
+              <div>สถานะการชำระ</div>
+              <div>สถานะออเดอร์</div>
+              <div>
+                รายละเอียด
+                <br />
+                ออเดอร์
+              </div>
             </div>
-            <div className="flex justify-around">
-              <span>4</span>
-              <span>4/1/2023</span>
-              <span>6/1/2023</span>
-              <span>0:01</span>
-              <span>EMS</span>
-              <span>ยืนยันแล้ว</span>
-              <span>จัดส่งแล้ว</span>
-              <span>ดูเพิ่มเติม</span>
-            </div>
+            {orders?.map((item, index) => {
+              const purchaseDate = item.createdAt
+                .slice(0, 10)
+                .split("-")
+                .reverse()
+                .join("/");
+
+              const timeSplit = item.createdAt.slice(12, 16);
+
+              const date = new Date(item.createdAt);
+              date.setDate(date.getDate() + 2);
+              const deadline = DateAgo(date);
+              const now = Date.now();
+
+              return (
+                <div className="grid grid-cols-8 gap-2 border-b" key={index}>
+                  <div>{item.id}</div>
+                  <div>{purchaseDate}</div>
+                  <div
+                    className={
+                      moment(date).isAfter(now)
+                        ? "text-green-400"
+                        : "text-red-400"
+                    }
+                  >
+                    {deadline}
+                  </div>
+                  <div>{timeSplit}</div>
+                  <div>{item.sendBy}</div>
+                  <div
+                    className={
+                      item.PaymentConfirmation?.paymentStatus === "PENDING"
+                        ? "text-yellow-400"
+                        : item.PaymentConfirmation?.paymentStatus === "APPROVED"
+                        ? "text-green-400"
+                        : item.PaymentConfirmation?.paymentStatus === "DENIED"
+                        ? "text-red-400"
+                        : ""
+                    }
+                  >
+                    {item.PaymentConfirmation?.paymentStatus || "รอแจ้งชำระ"}
+                  </div>
+                  <div
+                    className={
+                      item.orderStatus === "PENDING"
+                        ? "text-yellow-400"
+                        : item.orderStatus === "SUCCESS"
+                        ? "text-green-400"
+                        : item.orderStatus === "CANCELED"
+                        ? "text-red-400"
+                        : ""
+                    }
+                  >
+                    {item.orderStatus}
+                  </div>
+                  <div
+                    onClick={(e) => {
+                      openModalFn(e);
+                    }}
+                    id={item.id}
+                    className="cursor-pointer hover:text-blue-500"
+                  >
+                    ดูเพิ่มเติม
+                  </div>
+                </div>
+              );
+            })}
+            {modal && (
+              <Modal title={`ข้อมูลออเดอร์รหัสเลขที่ ${clickedOrder}`}>
+                {order && <OrderDetail order={order} orderPC={orderPC} />}
+              </Modal>
+            )}
           </div>
         </div>
       </div>

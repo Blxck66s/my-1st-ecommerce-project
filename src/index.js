@@ -7,6 +7,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { store } from "./stores";
 import AuthContextProvider from "./contexts/AuthContext";
+import OrderContextProvider from "./contexts/orderContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,9 +15,11 @@ root.render(
 
   <Provider store={store}>
     <AuthContextProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <OrderContextProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </OrderContextProvider>
     </AuthContextProvider>
   </Provider>
 
