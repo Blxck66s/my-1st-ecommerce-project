@@ -9,6 +9,7 @@ import DateAgo from "../utils/DateAgo";
 import OrderDetail from "../Features/user/OrderDetail";
 import { modalSwitcher } from "../stores/modalSlice";
 import Modal from "../components/ui/Modal";
+import Loading from "../utils/Loading";
 
 function UserPage() {
   const [loading, setLoading] = useState(true);
@@ -47,14 +48,14 @@ function UserPage() {
     fetch();
   }, []);
 
-  if (loading) return <div>waiting</div>;
+  if (loading) return <Loading />;
   return (
     <div
-      className={` h-[800px] w-full bg-slate-100 dark:bg-slate-600 flex justify-center gap-4 dark:text-white ${
+      className={` h-screen w-full bg-slate-100 dark:bg-slate-600 flex justify-center gap-4 dark:text-white ${
         mode ? "dark" : ""
       }`}
     >
-      <div className="flex flex-col justify-center gap-6 my-4 w-full items-center ">
+      <div className="flex flex-col justify-start gap-6 my-32 w-full items-center  ">
         <div className="shadow-2xl h-[110px] w-[800px] min-w-[250px] rounded-2xl">
           <br />
           <div className="mb-2">ข้อมูลส่วนตัว</div>

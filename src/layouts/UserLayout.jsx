@@ -10,9 +10,9 @@ function UserLayout() {
   return (
     <div className={mode ? "dark" : ""}>
       <Header />
-      <main>
-        <Outlet />
-      </main>
+
+      <Outlet />
+
       <Footer />
     </div>
   );

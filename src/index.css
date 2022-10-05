@@ -9,10 +9,10 @@
 
 @layer components {
   .BtnHover {
-    @apply hover:scale-125 transition ease-in-out delay-100;
+    @apply hover:scale-125 transition ease-in-out;
   }
 
   .NavAuth {
-    @apply m-2 rounded-full px-5 py-1 shadow dark:shadow-slate-400;
+    @apply m-2 rounded-full px-5 py-1 shadow dark:shadow-slate-50;
   }
 }
