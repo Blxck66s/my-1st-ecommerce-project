@@ -9,6 +9,7 @@ import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { useContext } from "react";
 import { ProductContext } from "../contexts/ProductContext";
 import Loading from "../utils/Loading";
+import noImage from "../public/no-image.svg";
 
 function Home() {
   const mode = useSelector((state) => state.header.mode);
@@ -65,9 +66,14 @@ function Home() {
             return (
               <div
                 key={index}
-                className="w-[300px] h-[450px] bg-white dark:bg-slate-800 drop-shadow-2xl rounded-md"
+                className="w-[300px] h-[550px] bg-white dark:bg-slate-800 drop-shadow-2xl rounded-md"
               >
-                <div className="w-[300px] h-[200px] bg-white rounded-t-md shadow-md"></div>
+                <div className="w-[300px] h-[300px] bg-white dark:bg-black rounded-t-md shadow-md overflow-hidden flex justify-center">
+                  <img
+                    src={item?.product_image || noImage}
+                    className="max-w-full "
+                  />
+                </div>
                 <div className="p-4">{item.product_name}</div>
                 <div className="mb-3">
                   สั่งซื้อไปแล้วทั้งหมด {item.Product_ordered} เครื่อง !
@@ -83,19 +89,16 @@ function Home() {
                 </div>
                 <button
                   className="NavAuth BtnHover hover:bg-blue-600 hover:text-slate-100 text-blue-600"
-                  value="ยืนยัน"
+                  id={item.id}
                 >
-                  ดูเพิ่มเติม
+                  สั่งซื้อเลย !
                 </button>
               </div>
             );
           })}
         </div>
-        <div className="mt-10">
-          <button
-            className="NavAuth BtnHover rounded-md  hover:bg-blue-600 hover:text-slate-100 text-blue-600 text-2xl"
-            value="ยืนยัน"
-          >
+        <div className="mt-28">
+          <button className="NavAuth BtnHover rounded-md  hover:bg-blue-600 hover:text-slate-100 text-blue-600 text-4xl">
             ช้อปเลย !
           </button>
         </div>
