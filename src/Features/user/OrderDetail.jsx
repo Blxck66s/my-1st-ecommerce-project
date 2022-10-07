@@ -116,7 +116,9 @@ function OrderDetail({ order, orderPC }) {
             <div className="flex text-2xl">รายละเอียดการแจ้งชำระเงิน</div>
             <br />
             <div className="flex  gap-10">
-              <div className="h-[400px] w-[250px] bg-black"></div>
+              <div className="h-[400px] w-[250px] overflow-auto">
+                <img src={orderPC.slipImage} alt="slipimage" />
+              </div>
 
               <div className="grid grid-rows-8 gap-2 ">
                 <div>ชื่อ-นามสกุลผู้โอน</div>
@@ -145,12 +147,13 @@ function OrderDetail({ order, orderPC }) {
             </div>
             <div className="grid grid-cols-1 gap-2">
               {order.OrderItems.map((item, index) => {
+                console.log(item);
                 return (
                   <div
                     key={index}
                     className="grid grid-cols-2 gap-2 border-b-2"
                   >
-                    <div>{item.Product.ProductName}</div>
+                    <div>{item.Product.productName}</div>
                     <div>{item.amount}</div>
                   </div>
                 );

@@ -9,6 +9,7 @@ import { store } from "./stores";
 import AuthContextProvider from "./contexts/AuthContext";
 import OrderContextProvider from "./contexts/orderContext";
 import ProductContextProvider from "./contexts/ProductContext";
+import PayConContextProvider from "./contexts/PayConContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,9 +19,11 @@ root.render(
     <AuthContextProvider>
       <OrderContextProvider>
         <ProductContextProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <PayConContextProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </PayConContextProvider>
         </ProductContextProvider>
       </OrderContextProvider>
     </AuthContextProvider>
