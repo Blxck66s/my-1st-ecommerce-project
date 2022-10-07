@@ -12,7 +12,14 @@ function ProductContextProvider({ children }) {
       console.log(err);
     }
   };
-
+  const getTotalProduct = async () => {
+    try {
+      const res = await axios.get("http://localhost:3001/product/total");
+      return res.data.Product;
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const getProduct = async (
     page = "1",
     limit = "5",
@@ -97,6 +104,7 @@ function ProductContextProvider({ children }) {
   return (
     <ProductContext.Provider
       value={{
+        getTotalProduct,
         getTopProduct,
         getProduct,
         getCPU,

@@ -8,8 +8,16 @@ import kosana from "../public/kosana.jpg";
 function Shopping() {
   const mode = useSelector((state) => state.header.mode);
   const [loading, setLoading] = useState(true);
-  const { getCPU, getMB, getram, getgpu, getdrive, getcase, getpsu } =
-    useContext(ProductContext);
+  const {
+    getCPU,
+    getMB,
+    getram,
+    getgpu,
+    getdrive,
+    getcase,
+    getpsu,
+    getTotalProduct,
+  } = useContext(ProductContext);
   const [cpu, setCpu] = useState(null);
   const [mainboard, setMainboard] = useState(null);
   const [ram, setRam] = useState(null);
@@ -22,6 +30,8 @@ function Shopping() {
   const [sort, setSort] = useState("createdAt");
   const [showSort, setshowSort] = useState("createdAtDESC");
   const [updown, setUpdown] = useState("DESC");
+  const [totalPage, setTotalPage] = useState(1);
+  const [page, setPage] = useState(1);
 
   const [selectedCPU, setSelectedCPU] = useState("");
   const [selectedmainboard, setselectedMainboard] = useState("");
@@ -39,19 +49,25 @@ function Shopping() {
       await getgpu().then((res) => setGpu(res));
       await getdrive().then((res) => setDrive(res));
       await getcase().then((res) => setCaseN(res));
-      await getpsu()
-        .then((res) => setPsu(res))
+      await getpsu().then((res) => setPsu(res));
+      await getTotalProduct()
+        .then((res) => {
+          const number = Math.ceil(res / limit);
+          setTotalPage([...Array(number).keys()]);
+        })
         .then(() => setLoading(false));
     };
     fetch();
   }, [
     selectedCPU,
+    limit,
     selectedmainboard,
     selectedram,
     selectedgpu,
     selecteddrive,
     selectedcaseN,
     selectedpsu,
+    getTotalProduct,
   ]);
 
   if (loading) return <Loading />;
@@ -265,25 +281,49 @@ function Shopping() {
               <div className="mb-4">
                 <ul className="inline-flex -space-x-px">
                   <li>
-                    <span className="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      Previous
-                    </span>
+                    <button
+                      onClick={(e) => setPage(page > 1 ? page - 1 : page)}
+                    >
+                      <span className="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        Previous
+                      </span>
+                    </button>
                   </li>
-                  <li>
-                    <span className="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      1
-                    </span>
-                  </li>
+                  {totalPage.map((item, index) => {
+                    return (
+                      <li key={index}>
+                        <button onClick={(e) => setPage(index + 1)}>
+                          <span
+                            className={`py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white
+                           ${
+                             page === index + 1
+                               ? "bg-gray-100 dark:bg-gray-700"
+                               : ""
+                           }`}
+                          >
+                            {index + 1}
+                          </span>
+                        </button>
+                      </li>
+                    );
+                  })}
 
                   <li>
-                    <span className="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      Next
-                    </span>
+                    <button
+                      onClick={(e) =>
+                        setPage(page < totalPage.length ? page + 1 : page)
+                      }
+                    >
+                      <span className="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        Next
+                      </span>
+                    </button>
                   </li>
                 </ul>
               </div>
               <div className="flex flex-col justify-center items-center gap-10">
                 <ProductContainer
+                  page={page}
                   cpu={selectedCPU}
                   mainboard={selectedmainboard}
                   ram={selectedram}

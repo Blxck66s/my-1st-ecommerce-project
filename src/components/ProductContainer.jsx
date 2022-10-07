@@ -42,7 +42,6 @@ function ProductContainer({
     };
     fetch();
   }, [page, limit, sort, updown, cpu, mainboard, ram, gpu, drive, caseN, psu]);
-  console.log(product);
 
   if (loading) return <Loading />;
   return (
