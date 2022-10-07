@@ -12,7 +12,7 @@ function Modal({ title, children }) {
 
   return (
     <div
-      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-black bg-opacity-40 backdrop-blur-sm"
+      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-black bg-opacity-40 backdrop-blur-sm z-[1000]"
       onClick={closeModal}
     >
       <div

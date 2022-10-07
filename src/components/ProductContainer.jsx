@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { ProductContext } from "../contexts/ProductContext";
 import Loading from "../utils/Loading";
 import noImage from "../public/no-image.svg";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 function ProductContainer({
   page,
@@ -17,6 +18,7 @@ function ProductContainer({
   caseN,
   psu,
 }) {
+  const navigate = useNavigate();
   const mode = useSelector((state) => state.header.mode);
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState(null);
@@ -86,6 +88,9 @@ function ProductContainer({
                 <button
                   className="text-base ml-10 NavAuth BtnHover w-32 h-10 hover:bg-blue-600 hover:text-slate-100 text-blue-600"
                   id={item.id}
+                  onClick={() => {
+                    navigate(`/Order/${item.id}`);
+                  }}
                 >
                   สั่งซื้อสินค้า
                 </button>

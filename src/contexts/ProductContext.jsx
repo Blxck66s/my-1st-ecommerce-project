@@ -43,7 +43,14 @@ function ProductContextProvider({ children }) {
       console.log(err);
     }
   };
-
+  const getProductById = async (id) => {
+    try {
+      const res = await axios.get(`http://localhost:3001/product/byId/${id}`);
+      return res.data.Product;
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const getCPU = async () => {
     try {
       const res = await axios.get("http://localhost:3001/product/CPU");
@@ -105,6 +112,7 @@ function ProductContextProvider({ children }) {
     <ProductContext.Provider
       value={{
         getTotalProduct,
+        getProductById,
         getTopProduct,
         getProduct,
         getCPU,

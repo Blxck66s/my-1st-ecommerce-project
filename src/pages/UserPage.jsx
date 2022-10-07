@@ -76,10 +76,10 @@ function UserPage() {
             </div>
           </div>
         </div>
-        <div className="shadow-2xl h-[600px] w-[1100px] rounded-2xl">
+        <div className="shadow-2xl h-[600px] w-[1100px] rounded-2xl overflow-auto">
           <br />
           <div className="mb-3">ออเดอร์ของฉัน</div>
-          <div className="w-full flex flex-col gap-2 ">
+          <div className="w-full flex flex-col gap-2    ">
             <div className="grid grid-cols-8 gap-2">
               <div>รหัสออเดอร์</div>
               <div>วันที่สั่งซื้อ</div>

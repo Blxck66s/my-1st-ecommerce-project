@@ -7,6 +7,7 @@ import Payment from "../pages/Payment";
 import Shopping from "../pages/Shopping";
 import UserPage from "../pages/UserPage";
 import { AuthContext } from "../contexts/AuthContext";
+import Order from "../pages/Order";
 
 function Router() {
   const { user } = useContext(AuthContext);
@@ -18,6 +19,7 @@ function Router() {
           <Route path="/Shopping" element={<Shopping />} />
           <Route path="/Payment" element={<Payment />} />
           <Route path="/Profile" element={<UserPage />} />
+          <Route path="/Order/:id" element={<Order />} />
         </Route>
       ) : (
         <Route path="/" element={<UserLayout />}>

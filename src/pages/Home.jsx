@@ -10,6 +10,7 @@ import { useContext } from "react";
 import { ProductContext } from "../contexts/ProductContext";
 import Loading from "../utils/Loading";
 import noImage from "../public/no-image.svg";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Home() {
   const mode = useSelector((state) => state.header.mode);
@@ -24,7 +25,7 @@ function Home() {
     };
     fetch();
   }, []);
-
+  const navigate = useNavigate();
   if (loading) return <Loading />;
   return (
     <div
@@ -90,6 +91,9 @@ function Home() {
                 <button
                   className="NavAuth BtnHover hover:bg-blue-600 hover:text-slate-100 text-blue-600"
                   id={item.id}
+                  onClick={() => {
+                    navigate(`/Order/${item.id}`);
+                  }}
                 >
                   สั่งซื้อเลย !
                 </button>

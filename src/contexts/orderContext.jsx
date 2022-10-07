@@ -15,6 +15,13 @@ function OrderContextProvider({ children }) {
     }
   };
 
+  const createOrder = async (order) => {
+    const res = await axios.post("http://localhost:3001/order", order, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    return res.data.Order;
+  };
+
   const getOrderById = async (orderid) => {
     try {
       const res = await axios.get(
@@ -47,6 +54,7 @@ function OrderContextProvider({ children }) {
     <orderContext.Provider
       value={{
         getOrderById,
+        createOrder,
         getOrders,
         getOrderPaymentConfirmByOrderId,
       }}

@@ -2,6 +2,7 @@ import DateAgo from "../../utils/DateAgo";
 import moment from "moment";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useContext } from "react";
+import noImage from "../../public/no-image.svg";
 
 function OrderDetail({ order, orderPC }) {
   const { user } = useContext(AuthContext);
@@ -16,10 +17,6 @@ function OrderDetail({ order, orderPC }) {
   date.setDate(date.getDate() + 2);
   const deadline = DateAgo(date);
   const now = Date.now();
-
-  const sumProductPrice = order.OrderItems.reduce((sum, item) => {
-    return (sum += +item.productPrice);
-  }, 0);
 
   const formatter = new Intl.NumberFormat("en", {
     style: "currency",
@@ -56,7 +53,7 @@ function OrderDetail({ order, orderPC }) {
             {deadline}
           </div>
           <div>{timeSplit}</div>
-          <div>{formatter.format(sumProductPrice)}</div>
+          <div>{formatter.format(order.orderTotal)}</div>
           <div>{order.sendBy}</div>
           <div
             className={
@@ -117,7 +114,7 @@ function OrderDetail({ order, orderPC }) {
             <br />
             <div className="flex  gap-10">
               <div className="h-[400px] w-[250px] overflow-auto">
-                <img src={orderPC.slipImage} alt="slipimage" />
+                <img src={orderPC?.slipImage || noImage} alt="slipimage" />
               </div>
 
               <div className="grid grid-rows-8 gap-2 ">
