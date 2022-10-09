@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { modalSwitcher } from "../../stores/modalSlice";
 
@@ -12,7 +13,7 @@ function LoginForm() {
   const [passwordPHBL, setPasswordPHBL] = useState(false);
   const dispatch = useDispatch();
   const modal = useSelector((state) => state.modal.modalActive);
-
+  const navigate = useNavigate();
   const closeModalFn = () => {
     dispatch(modalSwitcher(!modal));
   };
@@ -25,7 +26,10 @@ function LoginForm() {
     setPasswordPHBL(false);
     try {
       await login(input);
-      await getuser();
+      const res = await getuser();
+      if (res.admin) {
+        navigate("/admin");
+      }
       closeModalFn();
     } catch (err) {
       console.log(err);

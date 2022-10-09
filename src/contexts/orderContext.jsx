@@ -15,6 +15,40 @@ function OrderContextProvider({ children }) {
     }
   };
 
+  const getorderss = async () => {
+    try {
+      const res = await axios.get("http://localhost:3001/order/getorders", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+
+      return res.data.Order;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getorderitems = async () => {
+    try {
+      const res = await axios.get("http://localhost:3001/order/getorderitems", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+      return res.data.OrderItem;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getTotalOrders = async () => {
+    try {
+      const res = await axios.get("http://localhost:3001/order/gettotalorder", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+      return res.data.Order;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const createOrder = async (order) => {
     const res = await axios.post("http://localhost:3001/order", order, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -55,8 +89,11 @@ function OrderContextProvider({ children }) {
       value={{
         getOrderById,
         createOrder,
+        getorderitems,
+        getorderss,
         getOrders,
         getOrderPaymentConfirmByOrderId,
+        getTotalOrders,
       }}
     >
       {children}

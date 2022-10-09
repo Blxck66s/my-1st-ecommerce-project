@@ -63,7 +63,7 @@ function Home() {
               style: "currency",
               currency: "THB",
             });
-
+            const disabled = item.stock ? false : true;
             return (
               <div
                 key={index}
@@ -89,13 +89,14 @@ function Home() {
                   {formatter.format(item.product_price)}
                 </div>
                 <button
-                  className="NavAuth BtnHover hover:bg-blue-600 hover:text-slate-100 text-blue-600"
+                  className=" disabled:opacity-50 NavAuth BtnHover hover:bg-blue-600 hover:text-slate-100 text-blue-600"
                   id={item.id}
+                  disabled={disabled}
                   onClick={() => {
                     navigate(`/Order/${item.id}`);
                   }}
                 >
-                  สั่งซื้อเลย !
+                  {item.stock ? "สั่งซื้อเลย !" : "หมด"}
                 </button>
               </div>
             );

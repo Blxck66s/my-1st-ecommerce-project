@@ -53,6 +53,9 @@ function ProductContainer({
           style: "currency",
           currency: "THB",
         });
+
+        const disabled = item.stock ? false : true;
+
         return (
           <div
             key={index}
@@ -68,7 +71,12 @@ function ProductContainer({
               />
             </div>
             <div className="flex flex-col justify-between ml-2 mt-5 mb-5 items-start">
-              <div className="text-2xl">{item.productName} </div>
+              <div className="flex justify-between w-[270px] items-baseline">
+                <div className="ml-4 text-2xl">{item.productName} </div>
+                <div className="text-xl">
+                  {item.stock ? "คงเหลือ : " + item.stock : ""}
+                </div>
+              </div>
               <div className="flex   ml-4 gap-10 text-lg">
                 <div className="flex flex-col justify-start items-start">
                   <div>CPU {item.cpuName}</div>
@@ -86,13 +94,14 @@ function ProductContainer({
               <div className="text-2xl text-red-500">
                 {formatter.format(item.productPrice)}
                 <button
-                  className="text-base ml-10 NavAuth BtnHover w-32 h-10 hover:bg-blue-600 hover:text-slate-100 text-blue-600"
+                  className="text-base ml-10 NavAuth BtnHover w-32 h-10 hover:bg-blue-600 hover:text-slate-100 text-blue-600 disabled:opacity-50"
                   id={item.id}
+                  disabled={disabled}
                   onClick={() => {
                     navigate(`/Order/${item.id}`);
                   }}
                 >
-                  สั่งซื้อสินค้า
+                  {item.stock ? "สั่งซื้อสินค้า" : "หมด"}
                 </button>
               </div>
             </div>

@@ -27,6 +27,7 @@ function AuthContextProvider({ children }) {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
     setUser(res.data.user);
+    return res.data.user;
   };
   const register = async (input) => {
     const res = await axios.post("http://localhost:3001/auth/register", input);

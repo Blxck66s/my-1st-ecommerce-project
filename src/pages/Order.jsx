@@ -97,11 +97,11 @@ function Order() {
   if (loading) return <Loading />;
   return (
     <div
-      className={`h-screen dark:bg-slate-700 dark:text-white  ${
+      className={`h-screen dark:bg-slate-700 dark:text-white   ${
         mode ? "dark" : ""
       }`}
     >
-      <div className="flex  justify-center">
+      <div className="flex  justify-center w-full">
         <div className="flex flex-col justify-center w-[1400px]  mt-14">
           <div className="flex gap-10 mb-10">
             <div className=" h-[650px] w-[700px] flex flex-col items-center justify-center gap-10">
@@ -273,7 +273,7 @@ function Order() {
               </div>
               <div className="flex  border-b">
                 <div className="flex justify-start w-[200px]">
-                  <div>ราคาสินค้า</div>
+                  <div>ราคาสินค้าต่อชิ้น</div>
                 </div>
                 <div className="flex justify-end w-[200px]">
                   <div>{formatter.format(product.productPrice)}</div>
@@ -314,17 +314,18 @@ function Order() {
               </div>
             </div>
           </div>
-          <div>
-            <button
-              className="NavAuth BtnHover hover:bg-blue-600 hover:text-slate-100 text-blue-600 text-2xl"
-              onClick={handleSubmit}
-            >
-              ยืนยันการสั่งซื้อ
-            </button>
-          </div>
         </div>
       </div>
-      <div className=" "></div>
+      <div className="dark:bg-slate-700 h-40 w-full">
+        <div>
+          <button
+            className="NavAuth BtnHover hover:bg-blue-600 hover:text-slate-100 text-blue-600 text-2xl"
+            onClick={handleSubmit}
+          >
+            ยืนยันการสั่งซื้อ
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
