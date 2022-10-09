@@ -30,13 +30,13 @@ function DashBoard() {
     };
     fetch();
   }, []);
-  console.log(countOrder);
+
+  if (loading) return <Loading />;
 
   const profit =
     orderItems.reduce((sum, item) => (sum = sum + +item.productPrice || 0), 0) -
     orderItems.reduce((sum, item) => (sum = sum + +item.productCost || 0), 0);
 
-  if (loading) return <Loading />;
   return (
     <div
       className={` ${
