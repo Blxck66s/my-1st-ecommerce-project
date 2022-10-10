@@ -19,7 +19,7 @@ function Home() {
   const { getTopProduct } = useContext(ProductContext);
   useEffect(() => {
     const fetch = async () => {
-      await getTopProduct()
+      await getTopProduct(4)
         .then((res) => setTopProduct(res))
         .then(() => setLoading(false));
     };

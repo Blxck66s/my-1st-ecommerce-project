@@ -5,8 +5,6 @@ export const PayConContext = createContext();
 
 function PayConContextProvider({ children }) {
   const createPayConfirm = async (data) => {
-    console.log(data);
-
     const res = await axios.post(`http://localhost:3001/payconfirm`, data);
     return res.data.newPayConfirm;
   };

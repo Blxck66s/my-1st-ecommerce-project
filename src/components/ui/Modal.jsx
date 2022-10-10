@@ -1,13 +1,13 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { modalSwitcher } from "../../stores/modalSlice";
+import { useDispatch } from "react-redux";
+import { addModalSwitcher, modalSwitcher } from "../../stores/modalSlice";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 
 function Modal({ title, children }) {
-  const modal = useSelector((state) => state.modal.modalActive);
   const dispatch = useDispatch();
   const closeModal = () => {
-    dispatch(modalSwitcher(!modal));
+    dispatch(modalSwitcher(false));
+    dispatch(addModalSwitcher(false));
   };
 
   return (

@@ -4,9 +4,11 @@ import { createContext } from "react";
 export const ProductContext = createContext();
 
 function ProductContextProvider({ children }) {
-  const getTopProduct = async () => {
+  const getTopProduct = async (limit) => {
     try {
-      const res = await axios.get("http://localhost:3001/product/TopProduct");
+      const res = await axios.get(
+        `http://localhost:3001/product/TopProduct/${limit}`
+      );
       return res.data.Product;
     } catch (err) {
       console.log(err);
@@ -108,10 +110,38 @@ function ProductContextProvider({ children }) {
     }
   };
 
+  const createProduct = async (data) => {
+    try {
+      const res = await axios.post("http://localhost:3001/product", data, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+      return res.data.Product;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const updateProduct = async (id, data) => {
+    try {
+      const res = await axios.patch(
+        `http://localhost:3001/product/ById/${id}`,
+        data,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+      return res.data.Product;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <ProductContext.Provider
       value={{
         getTotalProduct,
+        updateProduct,
+        createProduct,
         getProductById,
         getTopProduct,
         getProduct,
