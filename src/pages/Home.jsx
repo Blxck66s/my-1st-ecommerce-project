@@ -103,7 +103,10 @@ function Home() {
           })}
         </div>
         <div className="mt-28">
-          <button className="NavAuth BtnHover rounded-md  hover:bg-blue-600 hover:text-slate-100 text-blue-600 text-4xl">
+          <button
+            className="NavAuth BtnHover rounded-md  hover:bg-blue-600 hover:text-slate-100 text-blue-600 text-4xl"
+            onClick={() => navigate("/shopping")}
+          >
             ช้อปเลย !
           </button>
         </div>

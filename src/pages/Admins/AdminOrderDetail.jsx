@@ -28,7 +28,8 @@ function AdminOrderDetail({
     .split("-")
     .reverse()
     .join("/");
-  const timeSplit = order.createdAt.slice(12, 16);
+  const timeSplit =
+    +order.createdAt.slice(11, 13) + 7 + "" + order.createdAt.slice(13, 16);
   const date = new Date(order.createdAt);
   date.setDate(date.getDate() + 2);
   const deadline = DateAgo(date);
@@ -214,7 +215,7 @@ function AdminOrderDetail({
               <select
                 name=""
                 id=""
-                className="w-36 h-10 px-2 rounded-lg border"
+                className="w-36 h-10 px-2 rounded-lg border dark:bg-slate-800"
                 value={SpaymentStatus}
                 onChange={(e) => setPaymentStatus(e.target.value)}
               >
@@ -229,7 +230,7 @@ function AdminOrderDetail({
               <select
                 name=""
                 id=""
-                className="w-36 h-10 px-2 rounded-lg border"
+                className="w-36 h-10 px-2 rounded-lg border dark:bg-slate-800"
                 value={SorderStatus}
                 onChange={(e) => setOrderStatus(e.target.value)}
               >
@@ -240,7 +241,7 @@ function AdminOrderDetail({
             <div className="flex justify-center text-lg mt-4">เลข Tracking</div>
             <div className="flex justify-center text-base w-full">
               <input
-                className="w-36 h-10 px-2 rounded-lg border"
+                className="w-36 h-10 px-2 rounded-lg border dark:bg-slate-800"
                 value={SorderTrackingNumber}
                 onChange={(e) => setOrderTrackingNumber(e.target.value)}
               />

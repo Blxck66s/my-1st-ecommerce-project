@@ -59,35 +59,70 @@ function ProductContainer({
         return (
           <div
             key={index}
-            className={`w-[750px] h-[300px] bg-slate-200 drop-shadow-xl rounded-2xl flex gap-10  overflow-hidden dark:bg-slate-600 ${
+            className={`w-[850px] h-[400px] bg-slate-200 drop-shadow-xl rounded-2xl flex gap-10  overflow-hidden dark:bg-slate-600 ${
               mode ? "dark" : ""
             } `}
           >
-            <div className="w-[300px] h-[300px] overflow-hidden flex justify-center shadow-lg">
+            <div className="w-[400px] h-[400px]  flex justify-center shadow-lg">
               <img
                 src={item.productImage || noImage}
                 alt={`product ${item.id}`}
-                className="flex-shrink-0 max-h-full object-cover"
+                className="flex-shrink-0 min-w-[400px] "
               />
             </div>
-            <div className="flex flex-col justify-between ml-2 mt-5 mb-5 items-start">
-              <div className="flex justify-between w-[270px] items-baseline">
-                <div className="ml-4 text-2xl">{item.productName} </div>
+            <div className="flex flex-col justify-between  mt-5 mb-2 items-start">
+              <div className="flex justify-between w-[320px] items-baseline">
+                <div className="ml-8 text-2xl">{item.productName} </div>
                 <div className="text-xl">
                   {item.stock ? "คงเหลือ : " + item.stock : ""}
                 </div>
               </div>
-              <div className="flex   ml-4 gap-10 text-lg">
-                <div className="flex flex-col justify-start items-start">
-                  <div>CPU {item.cpuName}</div>
-                  <div>GPU {item.gpuName} </div>
-                  <div>RAM {item.ramName} </div>
-                  <div>Drive {item.driveName} </div>
+              <div className="flex   ml-4 gap-2 text-lg">
+                <div className="flex flex-col w-[200px] justify-start items-start">
+                  <div className="flex justify-center w-full text-blue-400">
+                    CPU
+                  </div>
+                  <div className="flex justify-center w-full">
+                    {item.cpuName}
+                  </div>
+                  <div className="flex justify-center w-full text-blue-400">
+                    GPU
+                  </div>
+                  <div className="flex justify-center w-full">
+                    {item.gpuName}
+                  </div>
+                  <div className="flex justify-center w-full text-blue-400">
+                    RAM
+                  </div>
+                  <div className="flex justify-center w-full">
+                    {item.ramName}
+                  </div>
+                  <div className="flex justify-center w-full text-blue-400">
+                    Drive
+                  </div>
+                  <div className="flex justify-center w-full">
+                    {item.driveName}
+                  </div>
                 </div>
                 <div className="flex flex-col justify-start items-start">
-                  <div>M/B {item.mainboardName} </div>
-                  <div>Case {item.caseName} </div>
-                  <div>PSU {item.psuName} </div>
+                  <div className="flex justify-center w-full text-blue-400">
+                    M/B
+                  </div>
+                  <div className="flex justify-center w-full">
+                    {item.mainboardName}
+                  </div>
+                  <div className="flex justify-center w-full text-blue-400">
+                    Case
+                  </div>
+                  <div className="flex justify-center w-full">
+                    {item.caseName}
+                  </div>
+                  <div className="flex justify-center w-full text-blue-400">
+                    PSU
+                  </div>
+                  <div className="flex justify-center w-full">
+                    {item.psuName}
+                  </div>
                 </div>
               </div>
 

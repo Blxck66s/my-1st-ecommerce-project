@@ -84,15 +84,19 @@ function AdminProduct() {
                   <div>{item.productCost}</div>
                   <div>{item.productPrice}</div>
                   <div>
-                    {productSold.map((p) =>
-                      item.id === p.id ? (
-                        <div key={p.id}>{p.Product_ordered}</div>
-                      ) : (
-                        <div key={item.id} className={"text-sm text-red-400"}>
-                          -
-                        </div>
+                    {
+                      productSold.map(
+                        (p) =>
+                          item.id === p.id && (
+                            <div key={p.id}>{p.Product_ordered}</div>
+                          )
                       )
-                    )}
+                      // || (
+                      //   <div key={item.id} className={"text-sm text-red-400"}>
+                      //     -
+                      //   </div>
+                      // )
+                    }
                   </div>
                   <div className={item.stock ? "" : "text-sm text-red-400"}>
                     {item.stock || "หมด"}

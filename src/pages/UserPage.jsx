@@ -105,7 +105,11 @@ function UserPage() {
                 .reverse()
                 .join("/");
 
-              const timeSplit = item.createdAt.slice(12, 16);
+              const timeSplit =
+                +item.createdAt.slice(11, 13) +
+                7 +
+                "" +
+                item.createdAt.slice(13, 16);
 
               const date = new Date(item.createdAt);
               date.setDate(date.getDate() + 2);

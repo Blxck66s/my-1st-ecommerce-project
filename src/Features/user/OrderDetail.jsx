@@ -12,7 +12,8 @@ function OrderDetail({ order, orderPC }) {
     .split("-")
     .reverse()
     .join("/");
-  const timeSplit = order.createdAt.slice(12, 16);
+  const timeSplit =
+    +order.createdAt.slice(11, 13) + 7 + "" + order.createdAt.slice(13, 16);
   const date = new Date(order.createdAt);
   date.setDate(date.getDate() + 2);
   const deadline = DateAgo(date);
@@ -104,7 +105,7 @@ function OrderDetail({ order, orderPC }) {
           <div>{order.district}</div>
           <div>{order.postalCode}</div>
           <div> {order.province}</div>
-          <div>{order.trackingNumber || "-"}</div>
+          <div>{order.orderTrackingNumber || "-"}</div>
         </div>
 
         <div className="flex justify-start gap-20">
@@ -144,7 +145,6 @@ function OrderDetail({ order, orderPC }) {
             </div>
             <div className="grid grid-cols-1 gap-2">
               {order.OrderItems.map((item, index) => {
-                console.log(item);
                 return (
                   <div
                     key={index}

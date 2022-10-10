@@ -93,7 +93,7 @@ function Order() {
       setLoading(false);
     }
   };
-  console.log(order);
+
   if (loading) return <Loading />;
   return (
     <div
@@ -111,7 +111,7 @@ function Order() {
                   <input
                     placeholder="ชื่อผู้รับ"
                     type="text"
-                    className="w-1/2 h-10 border rounded-lg placeholder:pl-4"
+                    className="w-1/2 h-10 border rounded-lg placeholder:pl-4 dark:bg-slate-800"
                     value={order.receiverName}
                     onChange={(e) =>
                       setOrder({ ...order, receiverName: e.target.value })
@@ -121,7 +121,7 @@ function Order() {
                   <input
                     placeholder="เบอร์ติดต่อผู้รับ"
                     type="text"
-                    className="w-1/2 h-10 border rounded-lg  placeholder:pl-4"
+                    className="w-1/2 h-10 border rounded-lg  placeholder:pl-4 dark:bg-slate-800"
                     value={order.receiverPhone}
                     onChange={(e) =>
                       setOrder({ ...order, receiverPhone: e.target.value })
@@ -140,7 +140,7 @@ function Order() {
                   <input
                     placeholder="บ้านเลขที่/ถนน/ซอย ฯ"
                     type="text"
-                    className="w-2/3 h-10 border rounded-lg placeholder:pl-4"
+                    className="w-2/3 h-10 border rounded-lg placeholder:pl-4 dark:bg-slate-800"
                     value={order.detailedAddress}
                     onChange={(e) =>
                       setOrder({ ...order, detailedAddress: e.target.value })
@@ -149,7 +149,7 @@ function Order() {
                   <input
                     placeholder="แขวง/ตำบล"
                     type="text"
-                    className="w-1/3 h-10 border rounded-lg placeholder:pl-4"
+                    className="w-1/3 h-10 border rounded-lg placeholder:pl-4 dark:bg-slate-800"
                     value={order.subDistrict}
                     onChange={(e) =>
                       setOrder({ ...order, subDistrict: e.target.value })
@@ -171,7 +171,7 @@ function Order() {
                   <input
                     placeholder="เขต/อำเภอ"
                     type="text"
-                    className="w-1/3 h-10 border rounded-lg placeholder:pl-4"
+                    className="w-1/3 h-10 border rounded-lg placeholder:pl-4 dark:bg-slate-800"
                     value={order.district}
                     onChange={(e) =>
                       setOrder({ ...order, district: e.target.value })
@@ -180,7 +180,7 @@ function Order() {
                   <input
                     placeholder="เลขไปรษณีย์"
                     type="text"
-                    className="w-1/3 h-10 border rounded-lg placeholder:pl-4"
+                    className="w-1/3 h-10 border rounded-lg placeholder:pl-4 dark:bg-slate-800"
                     value={order.postalCode}
                     onChange={(e) =>
                       setOrder({ ...order, postalCode: e.target.value })
@@ -189,7 +189,7 @@ function Order() {
                   <input
                     placeholder="จังหวัด"
                     type="text"
-                    className="w-1/3 h-10 border rounded-lg placeholder:pl-4"
+                    className="w-1/3 h-10 border rounded-lg placeholder:pl-4 dark:bg-slate-800"
                     value={order.province}
                     onChange={(e) =>
                       setOrder({ ...order, province: e.target.value })

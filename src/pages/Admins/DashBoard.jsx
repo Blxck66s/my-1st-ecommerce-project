@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import moment from "moment";
+
 import OrderGraph from "./OrderGraph";
 
 import Loading from "../../utils/Loading";
@@ -34,8 +34,14 @@ function DashBoard() {
   if (loading) return <Loading />;
 
   const profit =
-    orderItems.reduce((sum, item) => (sum = sum + +item.productPrice || 0), 0) -
-    orderItems.reduce((sum, item) => (sum = sum + +item.productCost || 0), 0);
+    orderItems.reduce(
+      (sum, item) => (sum = sum + +item.productPrice * item.amount || 0),
+      0
+    ) -
+    orderItems.reduce(
+      (sum, item) => (sum = sum + +item.productCost * item.amount || 0),
+      0
+    );
 
   return (
     <div
