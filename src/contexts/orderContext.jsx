@@ -84,6 +84,35 @@ function OrderContextProvider({ children }) {
     }
   };
 
+  const deleteOrderById = async (orderid) => {
+    try {
+      const res = await axios.delete(
+        `http://localhost:3001/order/order/${orderid}`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+      return res.data.message;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const updateOrderById = async (orderid, input) => {
+    try {
+      const res = await axios.patch(
+        `http://localhost:3001/order/order/${orderid}`,
+        input,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+      return res.data.message;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <orderContext.Provider
       value={{
@@ -94,6 +123,8 @@ function OrderContextProvider({ children }) {
         getOrders,
         getOrderPaymentConfirmByOrderId,
         getTotalOrders,
+        deleteOrderById,
+        updateOrderById,
       }}
     >
       {children}
